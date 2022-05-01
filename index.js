@@ -1,5 +1,5 @@
 const height = window.innerHeight
-let app, player;
+let app, player, turtleShell;
 let playerSheet = {};
 let turtleSheet = {};
 
@@ -23,7 +23,8 @@ function doneLoading(e) {
     // createPlayerSheet();
     // createPlayer();
     createTurtleShellSheet();
-    createTurtleShell();
+    // createTurtleShell(200,200);
+    createTurtleShell(100,300);
     // app.ticker.add(gameLoop)
 }
 
@@ -50,11 +51,13 @@ function createPlayerSheet() {
 
 }
 
-function createTurtleShell() {
+function createTurtleShell(x, y) {
     turtleShell = new PIXI.AnimatedSprite(turtleSheet.active)
     turtleShell.scale.set(1.5)
     turtleShell.animationSpeed = 0.15;
     turtleShell.loop = true;
+    turtleShell.x = x;
+    turtleShell.y = y;
     app.stage.addChild(turtleShell)
     turtleShell.play()
 }
@@ -66,7 +69,13 @@ function createPlayer() {
     app.stage.addChild(player)
     player.play()
 }
-
-function gameLoop() {
-
+let speed = 2.5
+function gameLoop(data) {
+    turtleShell.x = turtleShell.x + speed;
+    console.log(turtleShell.x)
+    if((turtleShell.x > app.view.width - 300) || turtleShell.x < 0){
+        speed = -speed;
+    }
+    console.log("speed:", speed);
+   
 }
